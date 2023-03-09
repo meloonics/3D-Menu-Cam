@@ -1,0 +1,483 @@
+[gd_scene load_steps=29 format=3 uid="uid://yu67v0cfxi0l"]
+
+[ext_resource type="PackedScene" uid="uid://bmgum6yfxpwu6" path="res://main_cam.tscn" id="1_0yjpl"]
+[ext_resource type="Texture2D" uid="uid://dda66fc30wudl" path="res://ui/circ.png" id="1_m4ee6"]
+[ext_resource type="Script" path="res://main.gd" id="1_npeop"]
+[ext_resource type="PackedScene" uid="uid://dnunxht38jcon" path="res://ui/castlabel.tscn" id="2_ln6kx"]
+[ext_resource type="Script" path="res://ui/MotionPoint.gd" id="2_q23pu"]
+[ext_resource type="Script" path="res://ui/RangeRing.gd" id="3_o3nm6"]
+[ext_resource type="Script" path="res://ui/MotionUI.gd" id="4_pk8w4"]
+[ext_resource type="Script" path="res://ui/ControllerLabel.gd" id="5_1cm06"]
+[ext_resource type="Script" path="res://ui/ShakeButton.gd" id="9_h03eg"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m2ukg"]
+albedo_color = Color(1, 1, 0, 1)
+
+[sub_resource type="SphereMesh" id="SphereMesh_bx44p"]
+material = SubResource("StandardMaterial3D_m2ukg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_ufmxg"]
+albedo_color = Color(1, 0, 1, 1)
+
+[sub_resource type="TorusMesh" id="TorusMesh_h5psc"]
+material = SubResource("StandardMaterial3D_ufmxg")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mxn56"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3xovm"]
+material = SubResource("StandardMaterial3D_mxn56")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_75hii"]
+albedo_color = Color(0, 0, 1, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_yamro"]
+material = SubResource("StandardMaterial3D_75hii")
+height = 1.0
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_yiq2k"]
+albedo_color = Color(0, 1, 0, 1)
+
+[sub_resource type="PrismMesh" id="PrismMesh_6rrko"]
+material = SubResource("StandardMaterial3D_yiq2k")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_n0jg5"]
+shading_mode = 0
+
+[sub_resource type="SphereMesh" id="SphereMesh_pwyj3"]
+material = SubResource("StandardMaterial3D_n0jg5")
+radius = 0.05
+height = 0.1
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_tves0"]
+shading_mode = 0
+
+[sub_resource type="TorusMesh" id="TorusMesh_oms6l"]
+material = SubResource("StandardMaterial3D_tves0")
+inner_radius = 0.99
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_m34c1"]
+shading_mode = 0
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_8m7y7"]
+material = SubResource("StandardMaterial3D_m34c1")
+bottom_radius = 0.0
+height = 0.75
+radial_segments = 4
+rings = 1
+cap_top = false
+cap_bottom = false
+
+[sub_resource type="Animation" id="Animation_wt8x3"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CursorMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector3(0, 0, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_ru18f"]
+resource_name = "new_animation"
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("CursorMesh:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector3(0, 2, 0), Vector3(0, 2.5, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_y78p6"]
+_data = {
+"RESET": SubResource("Animation_wt8x3"),
+"new_animation": SubResource("Animation_ru18f")
+}
+
+[node name="Main" type="Node3D"]
+script = ExtResource("1_npeop")
+
+[node name="Objects" type="Node3D" parent="."]
+
+[node name="Yellow" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16.0097, 3.4142, -24.3178)
+mesh = SubResource("SphereMesh_bx44p")
+skeleton = NodePath("../..")
+
+[node name="Purple" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(0.705525, 0.566435, 0.425894, 0, 0.600964, -0.799276, -0.708685, 0.563909, 0.423996, -13.182, -12.1808, -20.8685)
+mesh = SubResource("TorusMesh_h5psc")
+
+[node name="Red" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(0.952794, -0.266179, -0.146055, 0, 0.48105, -0.876693, 0.303617, 0.835308, 0.458342, -1.6658, -2.68757, -12.0931)
+mesh = SubResource("BoxMesh_3xovm")
+skeleton = NodePath("../..")
+
+[node name="Blue" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(0.504762, 0.79841, 0.328262, -0.53859, 0.588439, -0.603042, -0.674637, 0.127595, 0.727038, 1.82325, 3.31228, -8.08041)
+mesh = SubResource("CylinderMesh_yamro")
+skeleton = NodePath("../..")
+
+[node name="Green" type="MeshInstance3D" parent="Objects"]
+transform = Transform3D(0.578797, 0.571267, -0.581935, 0, 0.713617, 0.700536, 0.815471, -0.405468, 0.41304, 5.76172, 1.50721, -6.7086)
+mesh = SubResource("PrismMesh_6rrko")
+skeleton = NodePath("../..")
+
+[node name="Viewpoints" type="Node3D" parent="."]
+
+[node name="Yellow" type="Camera3D" parent="Viewpoints"]
+transform = Transform3D(0.895728, 0.0371696, 0.443046, 0, 0.996499, -0.083602, -0.444602, 0.0748846, 0.892592, -15.4745, 3.3304, -23.2808)
+
+[node name="Purple" type="Camera3D" parent="Viewpoints"]
+transform = Transform3D(0.683301, -0.321764, 0.655414, 0, 0.897659, 0.44069, -0.730137, -0.301124, 0.613372, -10.4209, -10.551, -18.5153)
+
+[node name="Red" type="Camera3D" parent="Viewpoints"]
+transform = Transform3D(0.980278, 0.0479617, 0.191714, 0, 0.970103, -0.242694, -0.197622, 0.237908, 0.950971, -1.24736, -3.1032, -10.5993)
+
+[node name="Blue" type="Camera3D" parent="Viewpoints"]
+transform = Transform3D(0.916348, -0.115694, -0.383303, 0, 0.957342, -0.288959, 0.400382, 0.264787, 0.877258, 1.11337, 2.63147, -6.78879)
+
+[node name="Green" type="Camera3D" parent="Viewpoints"]
+transform = Transform3D(0.919807, 0.106205, -0.377724, 0, 0.962671, 0.270674, 0.392371, -0.248968, 0.885472, 4.84429, 1.92777, -4.98854)
+
+[node name="Overview" type="Camera3D" parent="Viewpoints"]
+
+[node name="MainCam" parent="." instance=ExtResource("1_0yjpl")]
+unique_name_in_owner = true
+
+[node name="MotionPoint" type="MeshInstance3D" parent="MainCam/RStickHandle/RStickPoint" index="0"]
+transform = Transform3D(0.2, 0, 0, 0, 0.2, 0, 0, 0, 0.2, 0, 0, 0)
+mesh = SubResource("SphereMesh_pwyj3")
+script = ExtResource("2_q23pu")
+
+[node name="RangeRing" type="MeshInstance3D" parent="MainCam/RStickHandle" index="1"]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, 0, 0)
+visible = false
+mesh = SubResource("TorusMesh_oms6l")
+script = ExtResource("3_o3nm6")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 0.671811, 0.740723, 0, -0.740723, 0.671811, 0, 0, 0)
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="Control" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="UI/Control"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 30
+theme_override_constants/margin_top = 30
+theme_override_constants/margin_right = 30
+theme_override_constants/margin_bottom = 30
+
+[node name="Options" type="VBoxContainer" parent="UI/Control/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="UI/Control/MarginContainer/Options"]
+layout_mode = 2
+size_flags_horizontal = 0
+focus_mode = 0
+toggle_mode = true
+text = "Cam Parameters"
+
+[node name="GridContainer" type="GridContainer" parent="UI/Control/MarginContainer/Options"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/h_separation = 15
+columns = 3
+
+[node name="Label5" type="Label" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+text = "Lerp Speed:"
+horizontal_alignment = 2
+
+[node name="LerpSpeed" type="HSlider" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+max_value = 20.0
+step = 0.01
+value = 5.0
+tick_count = 3
+ticks_on_borders = true
+
+[node name="Label6" parent="UI/Control/MarginContainer/Options/GridContainer" instance=ExtResource("2_ln6kx")]
+layout_mode = 2
+text = "5"
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+text = "Wiggle Strength Factor:"
+horizontal_alignment = 2
+
+[node name="WiggleStrength" type="HSlider" parent="UI/Control/MarginContainer/Options/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+max_value = 2.0
+step = 0.01
+value = 0.1
+tick_count = 5
+ticks_on_borders = true
+
+[node name="Label2" parent="UI/Control/MarginContainer/Options/GridContainer" instance=ExtResource("2_ln6kx")]
+layout_mode = 2
+text = "1.0"
+
+[node name="Label3" type="Label" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+text = "Wiggle Speed Factor:"
+horizontal_alignment = 2
+
+[node name="WiggleSpeed" type="HSlider" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+max_value = 5.0
+step = 0.01
+value = 1.5
+tick_count = 6
+ticks_on_borders = true
+
+[node name="Label4" parent="UI/Control/MarginContainer/Options/GridContainer" instance=ExtResource("2_ln6kx")]
+layout_mode = 2
+text = "1.0"
+
+[node name="Label7" type="Label" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+text = "RStick Handle Distance:"
+horizontal_alignment = 2
+
+[node name="RStickDistance" type="HSlider" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+min_value = 1.0
+max_value = 20.0
+step = 0.01
+value = 3.0
+allow_greater = true
+tick_count = 5
+ticks_on_borders = true
+
+[node name="Label8" parent="UI/Control/MarginContainer/Options/GridContainer" instance=ExtResource("2_ln6kx")]
+layout_mode = 2
+text = "1.0"
+
+[node name="Control" type="Control" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+
+[node name="Label10" type="Label" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+text = "Show RStick Motion Point: "
+
+[node name="Label9" type="CheckBox" parent="UI/Control/MarginContainer/Options/GridContainer"]
+layout_mode = 2
+focus_mode = 0
+button_pressed = true
+
+[node name="RStickUI" type="VBoxContainer" parent="UI/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer/RStickUI"]
+layout_mode = 2
+text = "RStick Motion"
+horizontal_alignment = 1
+
+[node name="MotionUI" type="TextureRect" parent="UI/Control/MarginContainer/RStickUI"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 8
+texture = ExtResource("1_m4ee6")
+script = ExtResource("4_pk8w4")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/MarginContainer/RStickUI"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer/RStickUI/HBoxContainer"]
+layout_mode = 2
+text = "X = "
+
+[node name="Label3" parent="UI/Control/MarginContainer/RStickUI/HBoxContainer" instance=ExtResource("2_ln6kx")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VSeparator" type="VSeparator" parent="UI/Control/MarginContainer/RStickUI/HBoxContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="UI/Control/MarginContainer/RStickUI/HBoxContainer"]
+layout_mode = 2
+text = "Y = "
+
+[node name="Label4" parent="UI/Control/MarginContainer/RStickUI/HBoxContainer" instance=ExtResource("2_ln6kx")]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="ControllerLabel" type="Label" parent="UI/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+script = ExtResource("5_1cm06")
+
+[node name="Screenshake" type="VBoxContainer" parent="UI/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+
+[node name="Button" type="Button" parent="UI/Control/MarginContainer/Screenshake"]
+layout_mode = 2
+size_flags_horizontal = 8
+focus_mode = 0
+toggle_mode = true
+text = "Screenshake"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI/Control/MarginContainer/Screenshake"]
+visible = false
+layout_mode = 2
+
+[node name="GridContainer" type="GridContainer" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer"]
+layout_mode = 2
+columns = 3
+
+[node name="Label" type="Label" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Intensity: "
+horizontal_alignment = 2
+
+[node name="Intensity" type="HSlider" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+max_value = 1.0
+step = 0.01
+value = 0.1
+tick_count = 3
+ticks_on_borders = true
+
+[node name="Label4" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer" instance=ExtResource("2_ln6kx")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0.1"
+horizontal_alignment = 2
+
+[node name="Label2" type="Label" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Frequency: "
+
+[node name="Frequency" type="HSlider" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+min_value = 30.0
+max_value = 200.0
+value = 100.0
+tick_count = 3
+ticks_on_borders = true
+
+[node name="Label5" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer" instance=ExtResource("2_ln6kx")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "100"
+horizontal_alignment = 2
+
+[node name="Label3" type="Label" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "Duration: "
+horizontal_alignment = 2
+
+[node name="Duration" type="HSlider" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 2
+size_flags_vertical = 4
+focus_mode = 0
+max_value = 1.0
+step = 0.01
+value = 0.5
+tick_count = 3
+ticks_on_borders = true
+
+[node name="Label6" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer" instance=ExtResource("2_ln6kx")]
+custom_minimum_size = Vector2(40, 0)
+layout_mode = 2
+text = "0.5"
+horizontal_alignment = 2
+
+[node name="HSeparator" type="HSeparator" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer"]
+layout_mode = 2
+
+[node name="ShakeButton" type="Button" parent="UI/Control/MarginContainer/Screenshake/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+focus_mode = 0
+text = "SHAKE!"
+script = ExtResource("9_h03eg")
+
+[node name="Cursor" type="Node3D" parent="."]
+visible = false
+
+[node name="CursorMesh" type="MeshInstance3D" parent="Cursor"]
+mesh = SubResource("CylinderMesh_8m7y7")
+skeleton = NodePath("../..")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Cursor"]
+autoplay = "new_animation"
+libraries = {
+"": SubResource("AnimationLibrary_y78p6")
+}
+
+[connection signal="toggled" from="UI/Control/MarginContainer/Options/Button" to="UI/Control/MarginContainer/Options/GridContainer" method="set_visible"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/LerpSpeed" to="MainCam" method="set_lerp_speed"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/LerpSpeed" to="UI/Control/MarginContainer/Options/GridContainer/Label6" method="new_value"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/WiggleStrength" to="MainCam" method="set_wiggle_strength"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/WiggleStrength" to="UI/Control/MarginContainer/Options/GridContainer/Label2" method="new_value"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/WiggleSpeed" to="MainCam" method="set_wiggle_speed"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/WiggleSpeed" to="UI/Control/MarginContainer/Options/GridContainer/Label4" method="new_value"]
+[connection signal="drag_ended" from="UI/Control/MarginContainer/Options/GridContainer/RStickDistance" to="MainCam/RStickHandle/RStickPoint/MotionPoint" method="_on_r_stick_distance_drag_ended"]
+[connection signal="drag_ended" from="UI/Control/MarginContainer/Options/GridContainer/RStickDistance" to="MainCam/RStickHandle/RangeRing" method="_on_r_stick_distance_drag_ended"]
+[connection signal="drag_started" from="UI/Control/MarginContainer/Options/GridContainer/RStickDistance" to="MainCam/RStickHandle/RStickPoint/MotionPoint" method="_on_r_stick_distance_drag_started"]
+[connection signal="drag_started" from="UI/Control/MarginContainer/Options/GridContainer/RStickDistance" to="MainCam/RStickHandle/RangeRing" method="_on_r_stick_distance_drag_started"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/RStickDistance" to="MainCam" method="set_motion_range_offset"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Options/GridContainer/RStickDistance" to="UI/Control/MarginContainer/Options/GridContainer/Label8" method="new_value"]
+[connection signal="toggled" from="UI/Control/MarginContainer/Options/GridContainer/Label9" to="MainCam/RStickHandle/RStickPoint/MotionPoint" method="_on_label_9_toggled"]
+[connection signal="toggled" from="UI/Control/MarginContainer/Options/GridContainer/Label9" to="MainCam/RStickHandle/RangeRing" method="_on_label_9_toggled"]
+[connection signal="x_changed" from="UI/Control/MarginContainer/RStickUI/MotionUI" to="UI/Control/MarginContainer/RStickUI/HBoxContainer/Label3" method="new_value"]
+[connection signal="y_changed" from="UI/Control/MarginContainer/RStickUI/MotionUI" to="UI/Control/MarginContainer/RStickUI/HBoxContainer/Label4" method="new_value"]
+[connection signal="toggled" from="UI/Control/MarginContainer/Screenshake/Button" to="UI/Control/MarginContainer/Screenshake/VBoxContainer" method="set_visible"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer/Intensity" to="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer/Label4" method="new_value"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer/Frequency" to="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer/Label5" method="new_value"]
+[connection signal="value_changed" from="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer/Duration" to="UI/Control/MarginContainer/Screenshake/VBoxContainer/GridContainer/Label6" method="new_value"]
+[connection signal="pressed" from="UI/Control/MarginContainer/Screenshake/VBoxContainer/ShakeButton" to="UI/Control/MarginContainer/Screenshake/VBoxContainer/ShakeButton" method="_on_pressed"]
+[connection signal="screenshake" from="UI/Control/MarginContainer/Screenshake/VBoxContainer/ShakeButton" to="MainCam" method="screenshake"]
+
+[editable path="MainCam"]

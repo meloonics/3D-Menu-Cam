@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://bmgum6yfxpwu6"]
+
+[ext_resource type="Script" path="res://main_cam.gd" id="1_exxr5"]
+
+[node name="MainCam" type="Node3D"]
+script = ExtResource("1_exxr5")
+
+[node name="ScreenShake" type="Node3D" parent="."]
+
+[node name="MotionTrack" type="Node3D" parent="ScreenShake"]
+
+[node name="IdleWiggle" type="Node3D" parent="ScreenShake/MotionTrack"]
+
+[node name="Cam" type="Camera3D" parent="ScreenShake/MotionTrack/IdleWiggle"]
+unique_name_in_owner = true
+current = true
+
+[node name="RStickHandle" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -2)
+
+[node name="RStickPoint" type="Node3D" parent="RStickHandle"]
+
+[node name="TScreenshakeFreq" type="Timer" parent="."]
+
+[connection signal="timeout" from="TScreenshakeFreq" to="." method="_trauma"]
